@@ -8,7 +8,7 @@
        (map #(apply * %))
        first))
 
-(let [pairs (for [i numbers j numbers] [i j])]
+(let [pairs (for [i numbers j numbers] [i j])
+      triplets (for [i numbers pair pairs] (conj pair i))]
   (println "Day01a:" (day01 pairs))
-  (let [triplets (for [i numbers pair pairs] (conj pair i))])
   (println "Day01b:" (day01 triplets)))
