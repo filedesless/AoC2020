@@ -1,20 +1,14 @@
 (def numbers
   (map clojure.edn/read-string (clojure.string/split-lines (slurp "input01.txt"))))
 
-(def pairs
-  (for [i numbers j numbers]
-    [i j]))
+(defn day01 [entries]
+  "Find the product of the entries whose sum is 2020"
+  (->> entries
+       (filter #(= 2020 (apply + %)))
+       (map #(apply * %))
+       first))
 
-(def pair
-  (first (filter #(= 2020 (+ (get % 0) (get % 1))) pairs)))
-
-(println "Day01a:" (* (get pair 0) (get pair 1)))
-
-(def triplets
-  (for [i numbers j numbers k numbers]
-    [i j k]))
-
-(def triplet
-  (first (filter #(= 2020 (+ (get % 0) (get % 1) (get % 2))) triplets)))
-
-(println "Day01b:" (* (get triplet 0) (get triplet 1) (get triplet 2)))
+(let [pairs (for [i numbers j numbers] [i j])]
+  (println "Day01a:" (day01 pairs))
+  (let [triplets (for [i numbers pair pairs] (conj pair i))])
+  (println "Day01b:" (day01 triplets)))
