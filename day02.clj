@@ -26,7 +26,7 @@
   (clojure.test/is (not (new-policy 1 3 \b "cdefg")))
   (clojure.test/is (not (new-policy 2 9 \c "ccccccccc"))))
 
-(def lines (clojure.string/split-lines (slurp "input02.txt")))
+(def lines (clojure.string/split-lines (slurp "input/02.txt")))
 
 (defn parse [line]
   "'1-3 a: abcde' -> (1 3 a 'abcde')"

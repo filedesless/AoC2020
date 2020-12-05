@@ -1,5 +1,5 @@
 (def numbers
-  (map clojure.edn/read-string (clojure.string/split-lines (slurp "input01.txt"))))
+  (map clojure.edn/read-string (clojure.string/split-lines (slurp "input/01.txt"))))
 
 (defn day01 [entries]
   "Find the product of the entries whose sum is 2020"
