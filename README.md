@@ -1,9 +1,12 @@
-# AoC2020
+# aoc2020
 
-Trying clojure this year
+My solution to the Advent of Code 2020, in clojure
 
 ## Run
 
-Evaluate a solution file with your clojure interpreter. Example:
+    lein run
 
-    clj day01.clj
+## Test
+
+    lein test
+
