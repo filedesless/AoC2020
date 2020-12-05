@@ -1,17 +1,30 @@
 (defn within? [lower upper value]
   (and (<= lower value) (>= upper value)))
 
-(defn valid? [min max letter password]
+(defn old-policy [min max letter password]
   "Tells wether password contains at least min times and a most max times letter"
   (->> password
        (filter (partial = letter))
        count
        (within? min max)))
 
-(clojure.test/testing "valid?"
-  (clojure.test/is (valid? 1 3 \a "abcde"))
-  (clojure.test/is (not (valid? 1 3 \b "cdefg")))
-  (clojure.test/is (valid? 2 9 \c "ccccccccc")))
+(clojure.test/testing "old-policy"
+  (clojure.test/is (old-policy 1 3 \a "abcde"))
+  (clojure.test/is (not (old-policy 1 3 \b "cdefg")))
+  (clojure.test/is (old-policy 2 9 \c "ccccccccc")))
+
+(defn xor [p q]
+  "Logical exclusive or"
+  (or (and p (not q)) (and (not p) q)))
+
+(defn new-policy [i j letter password]
+  "Tells wether password has letter at index i and j (1-indexed)"
+  (xor (= letter (get password (dec i))) (= letter (get password (dec j)))))
+
+(clojure.test/testing "new-policy"
+  (clojure.test/is (new-policy 1 3 \a "abcde"))
+  (clojure.test/is (not (new-policy 1 3 \b "cdefg")))
+  (clojure.test/is (not (new-policy 2 9 \c "ccccccccc"))))
 
 (def lines (clojure.string/split-lines (slurp "input02.txt")))
 
@@ -23,7 +36,9 @@
          (filter (partial not-empty)
                  (clojure.string/split line #"[- :]"))))
 
-(defn day02a []
-  (count (filter #(apply valid? (parse %)) lines)))
+(defn day02 [policy]
+  (count (filter #(apply policy (parse %)) lines)))
 
-(println "Day02a:" (day02a))
+(println "Day02a:" (day02 old-policy))
+
+(println "Day02b:" (day02 new-policy))
