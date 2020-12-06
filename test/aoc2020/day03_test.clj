@@ -13,3 +13,11 @@
 (t/deftest toboggan
   (t/is (= '(:open :tree :open :tree :tree :open :tree :tree :tree :tree)
            (sut/toboggan grid 3 1))))
+
+(t/deftest count-trees
+  (let [f (partial apply sut/count-trees grid)]
+    (t/is (= 2 (f (get sut/slopes 0))))
+    (t/is (= 7 (f (get sut/slopes 1))))
+    (t/is (= 3 (f (get sut/slopes 2))))
+    (t/is (= 4 (f (get sut/slopes 3))))
+    (t/is (= 2 (f (get sut/slopes 4))))))

@@ -13,5 +13,5 @@
   (println "Day02b:" (day02/day02b))
   (println "Day02b:" (day02/day02b))
   (println "Day03a:" (day03/day03a))
-  ;; (println "Day03b:" (day03/day03b))
+  (println "Day03b:" (day03/day03b))
   )
